@@ -1,0 +1,261 @@
+---
+title: 20251003 - 重新配置isaac和demo的笔记本
+confluence_page_id: 4358700
+created_at: 2025-10-03T10:55:27+00:00
+updated_at: 2025-10-05T14:25:49+00:00
+---
+
+# 安装Isaac
+
+参考: [20250926 - 搭建Issac环境]
+
+```
+# 参考文档: https://docs.isaacsim.omniverse.nvidia.com/latest/installation/install_workstation.html
+  
+wget https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalone-5.0.0-linux-x86_64.zip
+
+# 解压
+
+sudo apt-get install -y libxt6 libglu1-mesa libxrandr2
+  
+./post_install.sh
+bash isaac-sim.streaming.sh
+``` 
+
+运行时报错:
+
+```
+An input-output memory management unit (IOMMU) appears to be enabled on this system.
+On bare-metal Linux systems, CUDA and the display driver do not support IOMMU-enabled PCIe peer to peer memory copy.
+If you are on a bare-metal Linux system, please disable the IOMMU. Otherwise you risk image corruption and program instability.
+This typically can be controlled via BIOS settings (Intel Virtualization Technology for Directed I/O (VT-d) or AMD I/O Virtualization Technology (AMD-Vi)) and kernel parameters (iommu, intel_iommu, amd_iommu).
+Note that in virtual machines with GPU pass-through (vGPU) the IOMMU needs to be enabled.
+Since we can not reliably detect whether this system is bare-metal or a virtual machine, we show this warning in any case when an IOMMU appears to be enabled.
+``` 
+
+在os中, 编辑/etc/default/grub, 修改: 
+
+```
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash intel_iommu=off"
+``` 
+
+重启后， 通过./isaac-sim.sh 可以正确启动
+
+# 安装demo
+
+参考: [20251001 - 在Isaac Sim中, 进行机械手的教程]
+
+```
+# 下载dev容器
+docker pull nvcr.io/nvidia/isaac/ros:x86_64-ros2_humble_6f2a6bddf70fcd928f08e874635efe43
+
+# 安装nvidia  container toolkit
+ 
+curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
+  && curl -s -L https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \
+    sed 's#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g' | \
+    sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+ 
+ 
+sudo apt-get update
+ 
+export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.17.8-1
+  sudo apt-get install -y \
+      nvidia-container-toolkit=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      nvidia-container-toolkit-base=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      libnvidia-container-tools=${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
+      libnvidia-container1=${NVIDIA_CONTAINER_TOOLKIT_VERSION}
+
+sudo nvidia-ctk runtime configure --runtime=docker
+sudo systemctl daemon-reload && sudo systemctl restart docker
+
+# 安装 git lfs
+sudo apt-get install git-lfs
+git lfs install --skip-repo
+ 
+
+# 创建ROS工作区
+mkdir -p  ~/Code/isaac_ros-dev/src
+echo "export ISAAC_ROS_WS=${HOME}/Code/isaac_ros-dev/" >> ~/.bashrc
+source ~/.bashrc
+
+# 准备 isaac ROS common
+
+cd ${ISAAC_ROS_WS}/src && \
+  git clone -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git isaac_ros_common
+``` 
+
+修改文件./src/isaac_ros_common/scripts/run_dev.sh:
+
+```
+删除 docker run -it --rm 中的 --rm
+将docker rm 改成 docker start
+``` 
+
+进入容器:
+
+```
+cd $ISAAC_ROS_WS && ./src/isaac_ros_common/scripts/run_dev.sh
+``` 
+
+使用最小验证程序: 
+
+```
+#include <iostream>
+#include <cuda_runtime.h>
+
+int main() {
+    void* d_ptr = nullptr;
+    cudaStream_t stream;
+
+    // 1. 创建一个CUDA流
+    cudaError_t stream_err = cudaStreamCreate(&stream);
+    if (stream_err != cudaSuccess) {
+        std::cerr << "Failed to create CUDA stream: " << cudaGetErrorString(stream_err) << std::endl;
+        return -1;
+    }
+    std::cout << "CUDA stream created successfully." << std::endl;
+
+    // 2. 尝试调用 cudaMallocAsync
+    std::cout << "Attempting to call cudaMallocAsync..." << std::endl;
+    cudaError_t err = cudaMallocAsync(&d_ptr, 1024, stream);
+
+    // 3. 检查结果
+    if (err == cudaSuccess) {
+        std::cout << "SUCCESS: cudaMallocAsync executed without error." << std::endl;
+        cudaFreeAsync(d_ptr, stream);
+    } else {
+        std::cerr << "FAILURE: cudaMallocAsync returned error code " << err << ": " << cudaGetErrorString(err) << std::endl;
+    }
+
+    cudaStreamDestroy(stream);
+    return 0;
+}
+``` 
+
+编译: nvcc test_cuda.cpp -o test_cuda
+
+运行后正确输出: 
+
+```
+admin@tachikoma-ThinkBook-16p-G5-IRX:/workspaces/test$  nvcc test_cuda.cpp -o test_cuda
+admin@tachikoma-ThinkBook-16p-G5-IRX:/workspaces/test$ ./test_cuda 
+CUDA stream created successfully.
+Attempting to call cudaMallocAsync...
+SUCCESS: cudaMallocAsync executed without error.
+``` 
+
+注意: 下面的"需要解决nvidia-560的问题", 需要升级宿主机器的nvidia driver > 550
+
+进入容器配置ROS: 
+
+```
+# clone manipulator
+cd ${ISAAC_ROS_WS}/src && \
+  git clone --recursive -b release-3.2 https://github.com/NVIDIA-ISAAC-ROS/isaac_manipulator.git isaac_manipulator
+ 
+# Clone the Isaac ROS fork of ros2_robotiq_gripper and tylerjw/serial
+cd ${ISAAC_ROS_WS}/src && \
+  git clone --recursive https://github.com/NVIDIA-ISAAC-ROS/ros2_robotiq_gripper && \
+  git clone -b ros2 https://github.com/tylerjw/serial
+ 
+# Building dependencies:
+cd ${ISAAC_ROS_WS}
+colcon build --symlink-install --packages-select-regex robotiq* serial --cmake-args "-DBUILD_TESTING=OFF" && \
+source install/setup.bash
+
+# 检查AMENT_PREFIX_PATH, 应编译目录优先, 例如: /workspaces/isaac_ros-dev/install/robotiq_hardware_tests:/workspaces/isaac_ros-dev/install/robotiq_driver:/workspaces/isaac_ros-dev/install/serial:/workspaces/isaac_ros-dev/install/robotiq_description:/workspaces/isaac_ros-dev/install/robotiq_controllers:/opt/ros/humble
+
+# 设置环境变量
+export FASTRTPS_DEFAULT_PROFILES_FILE=/usr/local/share/middleware_profiles/rtps_udp_profile.xml
+
+# 安装 DEMO
+
+(配置好国外代理, 否则会报错, nvidia的国内站点文件有问题)
+
+sudo apt-get update
+ 
+sudo apt-get install -y ros-humble-isaac-manipulator-bringup ros-humble-isaac-manipulator-pick-and-place
+
+# 需要解决nvidia-560的问题
+以上apt会引入nvidia-560的包， 需要将宿主机的nvidia版本升级到560以上 （实际是570），容器内才能正确运行 
+``` 
+    
+    
+      
+      
+    配置视觉模型
+
+```
+ 
+# SyntheticaDETR
+mkdir -p ${ISAAC_ROS_WS}/isaac_ros_assets/models/synthetica_detr && \
+cd ${ISAAC_ROS_WS}/isaac_ros_assets/models/synthetica_detr && \
+wget 'https://api.ngc.nvidia.com/v2/models/nvidia/isaac/synthetica_detr/versions/1.0.0_onnx/files/sdetr_grasp.onnx'
+ 
+/usr/src/tensorrt/bin/trtexec --onnx=${ISAAC_ROS_WS}/isaac_ros_assets/models/synthetica_detr/sdetr_grasp.onnx --saveEngine=${ISAAC_ROS_WS}/isaac_ros_assets/models/synthetica_detr/sdetr_grasp.plan
+ 
+# FoundationPose
+ 
+mkdir -p ${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose && \
+cd ${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose && \
+wget 'https://api.ngc.nvidia.com/v2/models/nvidia/isaac/foundationpose/versions/1.0.0_onnx/files/refine_model.onnx' -O refine_model.onnx && \
+wget 'https://api.ngc.nvidia.com/v2/models/nvidia/isaac/foundationpose/versions/1.0.0_onnx/files/score_model.onnx' -O score_model.onnx
+ 
+/usr/src/tensorrt/bin/trtexec --onnx=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/refine_model.onnx --saveEngine=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/refine_trt_engine.plan --minShapes=input1:1x160x160x6,input2:1x160x160x6 --optShapes=input1:1x160x160x6,input2:1x160x160x6 --maxShapes=input1:42x160x160x6,input2:42x160x160x6
+ 
+/usr/src/tensorrt/bin/trtexec --onnx=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/score_model.onnx --saveEngine=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/score_trt_engine.plan --minShapes=input1:1x160x160x6,input2:1x160x160x6 --optShapes=input1:1x160x160x6,input2:1x160x160x6 --maxShapes=input1:252x160x160x6,input2:252x160x160x6
+ 
+ 
+# Mac and Cheese texture and mesh
+ 
+sudo apt-get install -y curl jq tar
+ 
+NGC_ORG="nvidia"
+NGC_TEAM="isaac"
+PACKAGE_NAME="isaac_ros_foundationpose"
+NGC_RESOURCE="isaac_ros_foundationpose_assets"
+NGC_FILENAME="quickstart.tar.gz"
+MAJOR_VERSION=3
+MINOR_VERSION=2
+VERSION_REQ_URL="https://catalog.ngc.nvidia.com/api/resources/versions?orgName=$NGC_ORG&teamName=$NGC_TEAM&name=$NGC_RESOURCE&isPublic=true&pageNumber=0&pageSize=100&sortOrder=CREATED_DATE_DESC"
+AVAILABLE_VERSIONS=$(curl -s \
+    -H "Accept: application/json" "$VERSION_REQ_URL")
+LATEST_VERSION_ID=$(echo $AVAILABLE_VERSIONS | jq -r "
+    .recipeVersions[]
+    | .versionId as \$v
+    | \$v | select(test(\"^\\\\d+\\\\.\\\\d+\\\\.\\\\d+$\"))
+    | split(\".\") | {major: .[0]|tonumber, minor: .[1]|tonumber, patch: .[2]|tonumber}
+    | select(.major == $MAJOR_VERSION and .minor <= $MINOR_VERSION)
+    | \$v
+    " | sort -V | tail -n 1
+)
+if [ -z "$LATEST_VERSION_ID" ]; then
+    echo "No corresponding version found for Isaac ROS $MAJOR_VERSION.$MINOR_VERSION"
+    echo "Found versions:"
+    echo $AVAILABLE_VERSIONS | jq -r '.recipeVersions[].versionId'
+else
+    mkdir -p ${ISAAC_ROS_WS}/isaac_ros_assets && \
+    FILE_REQ_URL="https://api.ngc.nvidia.com/v2/resources/$NGC_ORG/$NGC_TEAM/$NGC_RESOURCE/\
+versions/$LATEST_VERSION_ID/files/$NGC_FILENAME" && \
+    curl -LO --request GET "${FILE_REQ_URL}" && \
+    tar -xf ${NGC_FILENAME} -C ${ISAAC_ROS_WS}/isaac_ros_assets && \
+    rm ${NGC_FILENAME}
+fi
+``` 
+
+# 联调测试
+
+启动isaac sim, 加载 <https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/4.2/Isaac/Samples/ROS2/Scenario/isaac_manipulator_ur10e_robotiq_2f_140.usd>
+
+启动ros
+
+```
+export FASTRTPS_DEFAULT_PROFILES_FILE=/usr/local/share/middleware_profiles/rtps_udp_profile.xml
+cd ${ISAAC_ROS_WS}
+source install/setup.bash
+ros2 launch isaac_manipulator_pick_and_place isaac_sim_workflows.launch.py \
+   workflow_type:=object_following pose_estimation_type:=foundationpose
+``` 
+
+可以看到sim上机械臂动了， 但ROS很快就会报 GPU OOM

@@ -1,0 +1,8 @@
+---
+title: 20241120 - 萤石DL15S智能锁说明书
+confluence_page_id: 3343216
+created_at: 2024-11-20T15:58:40+00:00
+updated_at: 2024-11-20T00:00:00+00:00
+---
+
+[萤石 电子锁 智能门锁 DL15S 使用说明.pdf](/assets/01KJBZKW464CGVV2K505J6HKZB/%E8%90%A4%E7%9F%B3%20%E7%94%B5%E5%AD%90%E9%94%81%20%E6%99%BA%E8%83%BD%E9%97%A8%E9%94%81%20DL15S%20%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.pdf)
