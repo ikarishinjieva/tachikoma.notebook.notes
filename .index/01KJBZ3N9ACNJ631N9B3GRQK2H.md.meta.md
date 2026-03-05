@@ -1,39 +1,23 @@
 ---
 note: 01KJBZ3N9ACNJ631N9B3GRQK2H.md
 title: 20231108 - OMS研究, 阻塞目标库, 对队列进行探索
-indexed_at: 2026-02-27T10:37:51.399515+00:00
+indexed_at: 2026-03-05T09:13:15.735672+00:00
 ---
 
-用户需要我分析这篇关于 OMS 研究的笔记，生成索引元数据。让我仔细阅读笔记内容：
-
-1. 主要内容是关于 OMS（数据迁移/同步系统）在阻塞目标库时的队列行为研究
-2. 使用了 arthas 工具观测队列状态
-3. 分析了目标端和源端的数据流向
-4. 涉及 store、kafka connect 等组件
-5. 发现了一个端口继承的问题
-
-关键概念：
-- OMS 队列监控
-- arthas 诊断工具
-- store 进程
-- kafka connect
-- 端口继承问题
-
-关联笔记：从列表中看，没有明显直接关联的笔记。这篇是 2023 年的 OMS 研究，其他笔记大多是 2021 年的 MySQL/Clickhouse 相关内容。
-
-让我生成简洁的索引：
 ## 标签
-OMS, 队列监控, arthas, 数据同步, 阻塞分析, store 进程
+OMS, 队列监控, 阻塞分析, store 进程, kafka connect, arthas
 
 ## 摘要
-研究 OMS 在目标库阻塞时的队列行为，通过 arthas 观测发现源端队列为 0、目标端队列正确阻塞。追踪数据流向发现目标端从 store(端口 17002) 获取数据，源端 kafka connect 连接 store(端口 44833)，并发现子进程继承父进程端口未妥善处理的问题。
+通过 arthas 观测 OMS 在 Oracle 阻塞时的队列状态，发现源端队列为 0、目标端队列正确阻塞。追踪目标端数据来源为 store 进程 (端口 17002)，发现子进程未正确处理继承端口的问题。分析源端 kafka connect 与 store 的连接关系及核心逻辑链路。
 
 ## 关键概念
-- OMS 队列: 数据同步链路中各阶段的缓冲队列，用于观测阻塞位置
-- arthas: Java 诊断工具，用于获取 JVM 内部状态和网络连接信息
-- store: OMS 的数据存储/转发进程，源端和目标端通过端口与其通信
-- kafka connect: 源端数据捕获组件，通过 DRCDeliver 连接 store 获取数据
-- 端口继承: 子进程创建时未正确关闭从父进程继承的监听端口
+- OMS 队列: 数据同步链路中各处理阶段间的缓冲队列，用于观测数据流转状态
+- store 进程: OMS 目标端数据存储进程，负责向目标库写入数据
+- kafka connect: 源端数据抽取框架，通过 LogMinerConnectorTask 从 store 获取数据
+- arthas vmtool: Java 诊断工具，用于获取运行时对象状态和队列大小
+- 阻塞模式: 目标库锁表时 OMS 队列的阻塞行为，用于验证同步链路的正确性
 
 ## 关联笔记
-无
+- 01KJBZ3EQK7E6D34480VFBNXRD.md: 被引用，提供 arthas 队列监控脚本 get_status.sh 的使用方法
+- 01KJBZ4AQYF4DGS7F7000H9XZ8.md: OMS 全量复制链路整理，涉及 store 进程和队列的详细说明
+- 01KJBZ3P2X276MPVMQ02101059.md: OMS 增量复制链路日志分析，补充 OMS 日志系统的背景知识
