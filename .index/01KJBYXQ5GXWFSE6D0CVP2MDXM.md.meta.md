@@ -1,46 +1,19 @@
 ---
 note: 01KJBYXQ5GXWFSE6D0CVP2MDXM.md
 title: 20230110 - MySQL 编译信息
-indexed_at: 2026-02-27T10:21:42.504488+00:00
+indexed_at: 2026-03-05T08:19:46.993445+00:00
 ---
 
-用户希望我分析这篇关于 MySQL 编译信息的笔记，并生成索引元数据。让我仔细分析笔记内容：
-
-1. 这是一篇关于 MySQL 编译配置信息的笔记
-2. 包含了构建时间、主机信息、使用的工具（cmake 3.11.2）
-3. 包含大量的编译特性标志（Feature flags）
-4. 涉及 Boost、Kerberos、LDAP、OpenSSL 等依赖库的配置
-
-标签应该包括：MySQL、编译配置、CMake、构建信息、性能优化等
-
-摘要需要概括核心内容
-
-关键概念应该包括编译相关的术语
-
-关联笔记需要找与 MySQL 相关的笔记，从列表中可以看到有多个 MySQL 相关的笔记：
-- 01KJBYD9S0A3VZWG60QKDTAF49.md: innodb 刷脏页相关
-- 01KJBYD9T2SKQ815RG0XWSD236.md: MySQL connector 报错
-- 01KJBYD9T7VWC3J9T1JMVWGWMB.md: performance_schema
-- 01KJBYD9TKEMSF0Z4RF5DHT1QK.md: MySQL 刷脏页研究
-- 01KJBYD9VE4NJQXE9P0VKM16Q4.md: MySQL 刷盘研究
-- 01KJBYDAYBCJZXBGJFXXQ48F5X.md: Clickhouse MaterializedMySQL
-
-这篇笔记主要是编译信息，与其他功能性的 MySQL 笔记关联度不高，但都是 MySQL 相关的技术笔记。
-
-我可以选择与 MySQL 内核或性能相关的笔记作为关联。## 标签
-MySQL, 编译配置, CMake, 构建信息, 性能优化, 依赖库
-
 ## 摘要
-记录 MySQL 编译构建的详细信息，包括构建时间、主机环境、CMake 版本等。包含完整的编译特性标志（Feature flags）配置，涉及 Boost、Kerberos、LDAP 等依赖库的路径和选项。
+记录 MySQL 8.0.30 的完整编译配置信息，包括构建环境（Linux、cmake 3.11.2）和详细的 CMake 特性标志。可用于复现相同编译环境或分析编译参数对性能的影响。
 
 ## 关键概念
-- CMake: 跨平台的构建系统，用于管理 MySQL 编译过程
-- RelWithDebInfo: CMake 构建类型，带调试信息的发布版本
-- devtoolset: Red Hat 开发者工具集，提供新版 GCC 编译器
-- GSSAPI/Kerberos: 网络认证协议，用于 MySQL 安全认证
-- BOOST: C++ 库，MySQL 编译所需的外部依赖
+- CMAKE_BUILD_TYPE: 编译类型配置，RelWithDebInfo 表示带调试信息的发布版本
+- Feature Flags: CMake 配置选项，控制 MySQL 功能模块的启用/禁用状态
+- devtoolset-8: Red Hat 开发者工具集，提供更新版本的 GCC 编译器链
+- INSTALL_LAYOUT: 安装布局配置，STANDALONE 表示独立安装模式
 
 ## 关联笔记
-- 01KJBYD9T7VWC3J9T1JMVWGWMB.md: 同为 MySQL 性能相关笔记，涉及 performance_schema 使用
-- 01KJBYD9TKEMSF0Z4RF5DHT1QK.md: 同为 MySQL 内核研究笔记，涉及刷脏页机制
-- 01KJBYD9VE4NJQXE9P0VKM16Q4.md: 同为 MySQL 性能研究笔记，涉及数据文件刷盘
+- 01KJBYHCENW7J7KPJMGXJGAK4S.md: 工行 MySQL crash 分析，提到 MySQL 实例是独自编译的，可对比编译配置
+- 01KJBZ7XD3F9GQ1H1VCB71FRMY.md: 对比 Mariadb client 和 obclient 的差异，涉及 INFO_BIN 和 CMake 配置
+- 01KJBYF973H98W1RNZ05SS50KE.md: MySQL LLVM IR 编译实验，涉及底层编译优化研究
