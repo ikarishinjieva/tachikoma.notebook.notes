@@ -1,35 +1,20 @@
 ---
 note: 01KJBYWAGNCMC09YKANA534EKM.md
 title: 20221123 - 使用IntelliJ的jar进行 反编译
-indexed_at: 2026-02-27T10:20:50.957240+00:00
+indexed_at: 2026-03-05T08:17:28.471526+00:00
 ---
 
-用户希望我分析这篇关于使用 IntelliJ 的 FernFlower 反编译器进行 Java jar 包反编译的笔记，并生成索引元数据。
-
-让我分析笔记内容：
-1. 主题：使用 IntelliJ 的 FernFlower decompiler 反编译 OMS 的 jar 包
-2. 问题：JD-GUI 无法反编译某些 jar 包，FernFlower 也有部分 class 无法解析
-3. 解决方案：使用 Maven 获取反编译器，拆分命令处理无法解析的 class
-
-标签应该包括：Java、反编译、IntelliJ、FernFlower、jar 包、OMS
-
-摘要：记录使用 IntelliJ 的 FernFlower 反编译器解决 OMS jar 包无法反编译的问题，包括获取反编译器的方法和处理部分 class 无法解析的解决方案。
-
-关键概念：
-- FernFlower decompiler: IntelliJ 内置的 Java 反编译器
-- JD-GUI: 另一种 Java 反编译工具，对某些 jar 包效果不佳
-- ConsoleDecompiler: FernFlower 的命令行反编译工具
-
-关联笔记：查看其他笔记列表，主要是关于 MySQL、Clickhouse、gdb 等主题，与这篇 Java 反编译的笔记没有明显关联，所以应该是「无」## 标签
-Java, 反编译, IntelliJ, FernFlower, jar 包, OMS
+## 标签
+反编译，IntelliJ, FernFlower, Java, jar 包，OMS
 
 ## 摘要
-记录使用 IntelliJ 的 FernFlower 反编译器解决 OMS jar 包无法用 JD-GUI 反编译的问题。包括通过 Maven 获取反编译器、命令行使用方法，以及处理部分 class 解析卡住的拆分方案。
+记录使用 IntelliJ 的 FernFlower 反编译器处理 OMS 的 jar 包源码的方法。当 JD-GUI 无法反编译时，通过 Maven 获取 java-decompiler-engine，使用 ConsoleDecompiler 命令行工具进行反编译，并解决部分 class 解析卡住的问题。
 
 ## 关键概念
-- FernFlower decompiler: IntelliJ 内置的 Java 反编译器，支持命令行使用
-- JD-GUI: 图形化 Java 反编译工具，对某些 jar 包执行时间过长
-- ConsoleDecompiler: FernFlower 的命令行反编译工具类
+- FernFlower Decompiler: IntelliJ IDEA 内置的 Java 反编译器
+- ConsoleDecompiler: FernFlower 的命令行反编译工具
+- java-decompiler-engine: JetBrains 发布的独立反编译器引擎 Maven 包
 
 ## 关联笔记
-无
+- 01KJBYVT1YX1432FCSM17916P1.md: 同样涉及 OMS 的 jdbc_connector.jar 反编译以分析复制链路原理
+- 01KJBZ4AQYF4DGS7F7000H9XZ8.md: 涉及 OMS 全量复制链路分析，使用相同的 jdbc_connector.jar
