@@ -1,37 +1,42 @@
 ---
 note: 01KJBZANGZVY92HGNK5652A6G8.md
 title: 20240716 - 阅读论文: 关于知识图谱算法PCST (非论文)
-indexed_at: 2026-02-27T11:06:26.901895+00:00
+indexed_at: 2026-03-05T10:20:38.165534+00:00
 ---
 
-用户希望我分析这篇关于 PCST 算法在知识图谱中应用的笔记，并生成索引元数据。让我仔细分析笔记内容：
-
-1. **主题**：PCST（Prize-Collecting Steiner Tree）算法及其在知识图谱中的应用
-2. **核心内容**：
-   - PCST 是一种找到子图的算法
-   - 应用于关系路径预测和知识图谱补全
-   - 包含优缺点分析
-   - 有具体的电影知识图谱补全示例
-
-3. **标签**：需要 3-6 个关键词，如：知识图谱、PCST 算法、图算法、关系路径预测、知识图谱补全
-
-4. **摘要**：2-3 句话概括
-
-5. **关键概念**：3-5 个核心概念，如 PCST、Prize Nodes、知识图谱补全、关系路径预测等
-
-6. **关联笔记**：查看提供的笔记列表，主要是关于 MySQL、Clickhouse、数据库、性能分析等内容，与知识图谱/PCST 算法没有明显关联，所以应该是「无」
-
-让我生成输出：## 标签
-知识图谱，PCST 算法，图算法，关系路径预测，知识图谱补全，Steiner Tree
+## 标签
+知识图谱，PCST 算法，Steiner Tree，路径预测，图谱补全，图算法
 
 ## 摘要
-介绍 Prize-Collecting Steiner Tree (PCST) 算法的原理及其在知识图谱中的应用。通过电影知识图谱示例说明如何利用 PCST 进行关系路径预测和知识图谱补全。
+PCST（Prize-Collecting Steiner Tree）是一种图算法，用于在图中找到连接重要节点的最优子图，同时最小化连接成本并最大化收集的"prize"。该算法可应用于知识图谱的关系路径预测和补全任务，通过找到实体间的最低成本路径来推断潜在关系。
 
 ## 关键概念
-- PCST (Prize-Collecting Steiner Tree): 一种在图中找到满足连接成本最小化和收集 prize 最大化的子图算法
-- Prize Nodes: 代表感兴趣的实体或概念的重要节点，具有关联的 prize 值
-- 知识图谱补全: 通过已有实体和关系的最优路径连接，预测缺失的实体或关系
-- 关系路径预测: 将实体和关系建模为图，使用 PCST 找到连接目标实体的最优路径
+- PCST: Prize-Collecting Steiner Tree，一种寻找最优连接子图的算法
+- Prize Nodes: 图中需要连接的重要节点，带有表示重要性的 prize 值
+- 知识图谱补全: 通过已有关系路径预测缺失的实体或关系
+
+
+- 关系路径预测: 利用图结构推断实体间的潜在关联
+- 连接成本: 边的权重通常反映关系的置信度或强度
 
 ## 关联笔记
-无
+- 01KJBZ9VVMKVM4Y1MX1TXPMJ7W.md: 同样涉及知识图谱补全，但采用 TransE 模型而非 PCST 算法
+- 01KJBZCR153A9Q5TVFRCWHK44P.md: 探讨 ToG 框架在知识图谱上进行多跳推理的方法
+- 01KJBZJCR5P60FXY3BH47TAFH4.md: 介绍 HippoRAG 如何利用 PageRank 算法在知识图谱中检索信息
+## 标签
+知识图谱，PCST 算法，Steiner Tree，路径预测，图谱补全，图算法
+
+## 摘要
+PCST（Prize-Collecting Steiner Tree）是一种图算法，用于在图中找到连接重要节点的最优子图，同时最小化连接成本并最大化收集的"prize"。该算法可应用于知识图谱的关系路径预测和补全任务，通过找到实体间的最低成本路径来推断潜在关系。
+
+## 关键概念
+- PCST: Prize-Collecting Steiner Tree，一种寻找最优连接子图的算法
+- Prize Nodes: 图中需要连接的重要节点，带有表示重要性的 prize 值
+- 知识图谱补全: 通过已有关系路径预测缺失的实体或关系
+- 关系路径预测: 利用图结构推断实体间的潜在关联
+- 连接成本: 边的权重，通常基于关系置信度确定
+
+## 关联笔记
+- 01KJBZ9VVMKVM4Y1MX1TXPMJ7W.md: 同样涉及知识图谱补全，但使用 TransE 模型进行预测
+- 01KJBZCR153A9Q5TVFRCWHK44P.md: 讨论 ToG 算法在知识图谱上进行多跳推理路径规划
+- 01KJBZJCR5P60FXY3BH47TAFH4.md: 介绍 HippoRAG 使用 PageRank 算法在知识图谱中进行知识发现
