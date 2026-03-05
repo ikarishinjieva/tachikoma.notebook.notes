@@ -1,38 +1,36 @@
 ---
 note: 01KJBZ0MF6HP20GSPM265EHYPP.md
 title: 20230527 - 对 text-davinci-003 和 gpt-35-turbo-0301 的聊天理解能力 进行对比
-indexed_at: 2026-02-27T10:29:42.798427+00:00
+indexed_at: 2026-03-05T08:46:10.501253+00:00
 ---
 
-用户要求我分析一篇笔记并生成索引元数据。让我仔细阅读笔记内容：
-
-笔记标题：20230527 - 对 text-davinci-003 和 gpt-35-turbo-0301 的聊天理解能力 进行对比
-
-笔记内容主要是：
-1. 有一个附件 openai_api_test.ipynb
-2. davinci 效果：连续对话的分组会错误
-3. gpt35 效果：对连续对话的理解相对稳定
-
-其他笔记列表都是关于 MySQL、Clickhouse、数据库、系统性能等方面的内容，与这篇关于 OpenAI API 测试的笔记没有明显关联。
-
-我需要生成：
-1. 标签（3-6 个关键词）
-2. 摘要（2-3 句话）
-3. 关键概念（3-5 个）
-4. 关联笔记（0-3 篇，看起来没有关联）
-
-让我按要求格式输出。
 ## 标签
-OpenAI, GPT-3.5, text-davinci-003, 对话理解, 模型对比, API 测试
+OpenAI 模型，模型对比，text-davinci-003，gpt-3.5-turbo，连续对话，对话理解
 
 ## 摘要
-对比测试 text-davinci-003 和 gpt-35-turbo-0301 在连续对话场景下的理解能力。text-davinci-003 在对话分组上存在错误，而 gpt-35-turbo-0301 对连续对话的理解相对稳定。
+对比测试 text-davinci-003 和 gpt-35-turbo-0301 在连续对话场景下的理解能力。text-davinci-003 在连续对话的分组处理上存在错误，而 gpt-3.5-turbo 对连续对话的理解相对稳定。
 
 ## 关键概念
-- text-davinci-003: OpenAI 的 davinci 系列模型，在连续对话分组上表现不佳
-- gpt-35-turbo-0301: GPT-3.5 Turbo 版本，对话理解能力更稳定
-- 连续对话: 多轮交互场景，需要模型理解上下文关联
-- 对话分组: 模型对多轮对话内容的组织和归类能力
+- text-davinci-003: OpenAI 的 GPT-3 系列模型，在连续对话分组上表现不佳
+- gpt-3.5-turbo: OpenAI 的 GPT-3.5 系列对话模型，连续对话理解更稳定
+- 连续对话理解: 模型对多轮对话上下文和分组关系的处理能力
+
+
+- 对话分组错误：davinci 模型在识别对话轮次边界时容易出错
 
 ## 关联笔记
-无
+- 01KJBYZ4TEGRYF95QXFSF9JFZ4.md: 同样使用 text-davinci-003 构建知识库，记录了连续对话中的问题
+- 01KJBYYMHN0C5CA4ARZ21B6AAN.md: 同时测试了 text-davinci-003 和 gpt-35-turbo-0301 两个模型的对比## 标签
+OpenAI 模型，模型对比，text-davinci-003，gpt-3.5-turbo，连续对话，对话理解
+
+## 摘要
+对比测试 text-davinci-003 和 gpt-35-turbo-0301 在连续对话场景下的理解能力。text-davinci-003 在连续对话的分组处理上存在错误，而 gpt-3.5-turbo 对连续对话的理解相对稳定。
+
+## 关键概念
+- text-davinci-003: OpenAI 的 GPT-3 系列模型，在连续对话分组上表现不佳
+- gpt-3.5-turbo: OpenAI 的 GPT-3.5 系列对话模型，连续对话理解更稳定
+- 连续对话理解: 模型对多轮对话上下文和分组关系的处理能力
+
+## 关联笔记
+- 01KJBYZ4TEGRYF95QXFSF9JFZ4.md: 同样使用 text-davinci-003 制作知识库，记录了连续对话的缺陷
+- 01KJBYYMHN0C5CA4ARZ21B6AAN.md: 同时测试了 text-davinci-003 和 gpt-35-turbo-0301 两个模型
