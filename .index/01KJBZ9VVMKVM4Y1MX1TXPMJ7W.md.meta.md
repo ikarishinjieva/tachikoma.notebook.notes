@@ -1,39 +1,19 @@
 ---
 note: 01KJBZ9VVMKVM4Y1MX1TXPMJ7W.md
 title: 20240612 - 阅读论文: CBR-KBQA: Case-based reasoning for natural language queries over knowledge bases
-indexed_at: 2026-02-27T10:58:48.906956+00:00
+indexed_at: 2026-03-05T10:05:06.816947+00:00
 ---
 
-用户要求我分析这篇关于 CBR-KBQA 论文的笔记，并生成索引元数据。让我仔细阅读笔记内容：
-
-1. 这是一篇关于 CBR-KBQA 论文的笔记，涉及基于案例的推理用于知识图谱上的自然语言查询
-2. 主要内容包括 CBR-KBQA 的三个阶段：召回案例、复用案例、修订案例
-3. 提到了 TransE 模型用于知识图谱补全
-4. 有知识图谱补全的具体例子
-
-现在我需要生成：
-1. 标签：3-6 个关键词
-2. 摘要：2-3 句话
-3. 关键概念：3-5 个核心概念
-4. 关联笔记：查看其他笔记列表，找相关联的
-
-查看其他笔记列表，大部分是关于 MySQL、Clickhouse、数据库相关的笔记。这篇笔记是关于知识图谱和 NLP 的论文笔记，与数据库系统笔记关联度较低。
-
-但是有一个笔记看起来相关：
-- 01KJBYDD09MGYR4GA0C4KB7P9F.md: 20210613 - TODO: Advanced Join Strategies for Large-Scale Distributed Computation - 这个也是关于论文/研究的，但主题是 Join 策略，关联度不高
-
-实际上，这些笔记大部分是数据库、系统相关的，而这篇是知识图谱+NLP 的论文笔记，关联度都不高。
-
-我应该如实标注「无」或找出最接近的关联。## 标签
-知识图谱，案例推理，KBQA，TransE，知识补全，论文阅读
-
 ## 摘要
-CBR-KBQA 是一种基于案例推理的知识图谱问答方法，分为召回、复用、修订三个阶段。在修订阶段使用 TransE 模型进行知识图谱补全，通过向量表示学习预测缺失关系。
+CBR-KBQA 是基于知识图谱的问答方法，采用案例推理三阶段：召回案例、复用案例、修订案例。在修订阶段使用 TransE 模型进行知识图谱补全，预测缺失的关系。
 
 ## 关键概念
-- CBR-KBQA: 基于案例推理的知识图谱自然语言问答方法
-- TransE: 知识图谱嵌入模型，通过向量平移关系学习实体和关系表示
+- CBR (Case-Based Reasoning): 案例推理方法，通过检索和复用历史案例解决新问题
+- TransE: 知识图谱嵌入模型，学习实体和关系的低维向量表示用于关系预测
 - 知识图谱补全: 预测知识图谱中缺失的三元组关系
+- KBQA (Knowledge Base Question Answering): 基于知识库的自然语言问答
 
 ## 关联笔记
-无
+- 01KJBZ88V83251ZJ7E8G9QBSV2.md: 该笔记汇总了多篇 KBQA 相关论文，明确引用并总结了 CBR-KBQA 的核心思路
+- 01KJBZ8DW4SBX4299F8N84SB35.md: ECBRF 论文同样使用 CBR 方法进行常识知识库补全，与本文主题相近
+- 01KJBZANGZVY92HGNK5652A6G8.md: 介绍 PCST 算法在知识图谱补全中的应用，与本文 TransE 补全目标一致
