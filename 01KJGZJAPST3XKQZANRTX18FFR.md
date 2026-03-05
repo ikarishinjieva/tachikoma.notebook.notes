@@ -1,7 +1,7 @@
 ---
 title: 20260228-材料研发AI
 created_at: 2026-02-28T01:59:47.161843+00:00
-updated_at: 2026-03-05T06:41:30.064444+00:00
+updated_at: 2026-03-05T06:46:48.511669+00:00
 ---
 
 # 背景
@@ -490,9 +490,21 @@ web_search
 
 引入价值观 “孤证不立”, 并且在思考动作中, 要求对数值内容给出”参考系”
 
-## 问题5: 接入更多的数据源 (作为直觉数据源?)
+## 问题5: 接入更多的数据源
 
-TODO
+分为几部分: 
+
+- 在分析开始时, 用 openai deep research / gemini deep research / perplexity deep research / scimaster的雷达模型和研报模式 / InternAgent DeepResearch 作为 “科学家直觉”
+- 将 上海人工智能研究所 的 SCP (<https://discovery.intern-ai.org.cn/org/ailab/workspace/iframe?url=https://scphub.intern-ai.org.cn/>) 接入, 其工具比较多 (500个+), 且质量参差很严重. 最终将最重要的几十个保留 (按照领域+作用(新信息/数值查询/…) 来进行选用)
+
+注意: 6个高相关的模型中, 有两个的tool name超长, 以至于大模型报错:
+
+![](/assets/01KJGZJAPST3XKQZANRTX18FFR/f0f761eba7bc4e7eb7cf2c7832560098.png)
+
+还发现:
+
+- SCP一共提供了500+工具, 有些工具的返回值有错误, 写一个脚本进行检查, 只保留合法的脚本
+- 500+工具, 会导致工具数量超过模型能接受的能力, 目前用一个bridge MCP, 让模型可以查询其想用的工具, 再去调用工具
 
 ## 问题6: cache结构不对, 没有保留原文
 
@@ -525,18 +537,4 @@ run3的compaction有一些问题:
 
 效果待测试
 
-## 问题9: 引入新的数据源
-
-分为两部分:
-
-- 各种深度探索工具, 放在第一阶段, 先对目标生成一次整体研究报告, 作为”先验知识”, 但强调其不可靠性
-- Intern书生平台 提供的MCP, 将高相关的6个MCP接入opencode, 其他相关的MCP列表, 在模型需要是, 由人工确认再添加
-
-注意: 6个高相关的模型中, 有两个的tool name超长, 以至于大模型报错:
-
-![](/assets/01KJGZJAPST3XKQZANRTX18FFR/f0f761eba7bc4e7eb7cf2c7832560098.png)
-
-还发现:
-
-- SCP一共提供了500+工具, 有些工具的返回值有错误, 写一个脚本进行检查, 只保留合法的脚本
-- 500+工具, 会导致工具数量超过模型能接受的能力, 目前用一个bridge MCP, 让模型可以查询其想用的工具, 再去调用工具
+## 
