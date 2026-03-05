@@ -1,34 +1,21 @@
 ---
 note: 01KJBZ4KXHNKFVG2ZQN75SRJF6.md
 title: 20240101 - 构建项目管理chatbot
-indexed_at: 2026-02-27T10:41:43.285044+00:00
+indexed_at: 2026-03-05T09:25:19.706468+00:00
 ---
 
-用户要求我分析这篇关于构建项目管理 chatbot 的笔记，并生成索引元数据。让我仔细阅读笔记内容：
-
-1. 笔记主题：构建项目管理 chatbot
-2. 主要内容：
-   - 使用向量存储（FAISS）记录聊天记录
-   - LangChain 的 vectorstore retriever memory
-   - 20240131 更新：新的架构设计
-   - 日期解析、信息分流器（COMMON_QUESTION、PROJECT_QUESTION、PROJECT_INFO、COMMON_INFO）
-   - 问题：对话历史会产生干扰，需要用单独 prompt 重写问题
-
-3. 标签应该包括：chatbot、项目管理、向量存储、LangChain、对话系统等
-
-4. 关联笔记：查看提供的笔记列表，主要是关于 MySQL、Clickhouse、数据库相关的技术笔记，与这个 chatbot 项目没有直接关联
-
-让我生成索引：## 标签
-chatbot, 项目管理, 向量存储, LangChain, 对话系统, FAISS
+## 标签
+chatbot, LangChain, FAISS, 项目管理，向量存储，对话管理
 
 ## 摘要
-记录使用 LangChain 和 FAISS 向量存储构建项目管理 chatbot 的实现过程，包括聊天记录存储和检索方案。20240131 更新引入日期解析和对话分流器，解决对话历史干扰问题。
+记录使用 LangChain 和 FAISS 向量存储构建项目管理 chatbot 的实现过程，包括聊天记录存储结构和系统架构更新。分析了 GPT-3.5 中对话历史干扰问题，提出使用独立 prompt 重写问题的解决方案。
 
 ## 关键概念
-- 向量存储记忆：使用 FAISS 存储问答记录，每个问答作为独立 Document
-- 对话分流器：区分 COMMON_QUESTION、PROJECT_QUESTION、PROJECT_INFO、COMMON_INFO 四种对话类型
-- 日期解析：将模糊日期（如"明天"）转换为具体日期
-- 问题重写：用独立 prompt 将当前问题重写成不依赖对话历史的完整问题
+- 向量存储记忆: 使用 FAISS 外置存储聊天记录，每个问答对作为独立 Document 存储
+- info_or_question 分流器: 区分 COMMON_QUESTION、PROJECT_QUESTION、PROJECT_INFO、COMMON_INFO 四种对话类型
+- date_parse: 将模糊日期（如"明天"）转换为具体日期的解析模块
+- 问题重写: 将依赖对话历史的问题转换为独立完整的问题，避免历史干扰
 
 ## 关联笔记
-无
+- 01KJBZ52DM2FY8QMKH4WQ972HT.md: 同系列笔记，分析 LangChain 的 ConversationEntityMemory 记忆机制
+- 01KJBZ68S0R9NS2HK7MWN06G5A.md: 涉及 FAISS 向量存储的 embedding 导入和评估
