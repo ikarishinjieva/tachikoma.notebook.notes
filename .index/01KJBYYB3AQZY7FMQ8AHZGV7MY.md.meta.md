@@ -1,47 +1,17 @@
 ---
 note: 01KJBYYB3AQZY7FMQ8AHZGV7MY.md
 title: 20230420 - koala-13b + llama_index 测试
-indexed_at: 2026-02-27T10:27:28.593565+00:00
+indexed_at: 2026-03-05T08:38:30.759137+00:00
 ---
 
-用户要求我分析一篇笔记并生成索引元数据。让我仔细阅读笔记内容：
-
-笔记标题：20230420 - koala-13b + llama_index 测试
-
-笔记内容：
-- 有一个脚本附件：koala-13b-llama_index.ipynb
-- 效果测试显示了一些问题：
-  - 给出了 set SESSION 的错误答案
-  - 不能识别 enlarge
-
-这是一篇关于使用 koala-13b 模型配合 llama_index 进行测试的笔记，主要记录了测试效果和问题。
-
-其他笔记列表主要是关于 MySQL、Clickhouse、系统性能等方面的技术笔记，与这篇 AI 模型测试笔记没有明显关联。
-
-让我生成索引：
-
-## 标签
-AI 模型，llama_index, koala-13b, 测试，效果评估
-
 ## 摘要
-记录了使用 koala-13b 模型配合 llama_index 进行测试的过程和结果。测试发现模型在 SQL 语句理解和特定命令识别方面存在错误。
+测试 koala-13b 模型配合 llama_index 进行 SQL 问答的效果。模型在 SET SESSION 语法上给出错误答案，且无法识别 enlarge 命令，整体表现不理想。
 
 ## 关键概念
-- koala-13b: 一个 13B 参数的语言模型
-- llama_index: 用于构建 LLM 应用的框架
-- Notebook: Jupyter 笔记本脚本
+- koala-13b: 基于 LLaMA 微调的 130 亿参数开源对话模型
+- llama_index: 大模型应用开发框架，用于构建 RAG 系统
+- RAG: 检索增强生成，结合外部知识库增强模型回答能力
 
 ## 关联笔记
-无（其他笔记主要是 MySQL、Clickhouse、系统性能相关，与 AI 模型测试无明显关联）## 标签
-AI 模型，llama_index, koala-13b, 测试，效果评估
-
-## 摘要
-记录了使用 koala-13b 模型配合 llama_index 进行测试的过程和结果。测试发现模型在 SQL 语句（如 SET SESSION）和特定命令（如 enlarge）识别方面存在错误。
-
-## 关键概念
-- koala-13b: 一个 13B 参数的开源语言模型
-- llama_index: 用于构建 LLM 应用的框架
-- Jupyter Notebook: 交互式 Python 脚本环境
-
-## 关联笔记
-无
+- 01KJBYY15XHA2SXQJ1QNJY255A.md: 同一天测试 vicuna-13b + llama_index，同样存在无法识别 enlarge 的问题
+- 01KJBYYMHN0C5CA4ARZ21B6AAN.md: 20230423 测试 llama_index + OpenAI/Azure，对比不同 LLM 的效果
