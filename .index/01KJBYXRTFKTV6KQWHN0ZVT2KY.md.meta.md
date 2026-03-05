@@ -1,47 +1,23 @@
 ---
 note: 01KJBYXRTFKTV6KQWHN0ZVT2KY.md
 title: 20230405 - 测试 llama-index + GPT4All
-indexed_at: 2026-02-27T10:25:38.409337+00:00
+indexed_at: 2026-03-05T08:31:52.861660+00:00
 ---
 
-用户要求我分析这篇关于 llama-index 和 GPT4All 测试的笔记，并生成索引元数据。让我仔细阅读笔记内容：
-
-主要内容：
-1. 从 new bing 获取的信息关于 Huggingface Transformers、LangChain、llama-index
-2. GPT4All 的 CLI 使用
-3. 项目调用关系：langchain.llms.GPT4All -> gpt4all -> pyllamacpp
-4. Llama-index 的 LLMPredictor
-5. 测试 LangChain 支持 GPT4All 的过程
-6. 模型转换、pyllamacpp 库的使用
-7. 结合 GPT4All 与 llama_index 的代码示例
-8. 遇到的报错问题
-
-标签应该包括：LLM、GPT4All、Llama-index、LangChain、模型部署
-
-摘要：记录测试 llama-index 结合 GPT4All 本地模型的过程，包括环境搭建、模型转换和代码实现。遇到 token 超限等报错问题待解决。
-
-关键概念：
-- llama-index: LLM 与外部数据连接的接口框架
-- GPT4All: 本地运行的语言模型
-- LangChain: LLM 应用开发框架
-- pyllamacpp: llama.cpp 的 Python 绑定
-- PromptHelper: 控制输入输出大小的辅助工具
-
-关联笔记：
-看其他笔记列表，主要是 MySQL、Clickhouse、性能分析相关的，与这篇 LLM 相关的笔记没有直接关联。
-
-所以关联笔记应该写「无」。## 标签
-LLM, GPT4All, Llama-index, LangChain, 本地模型部署, pyllamacpp
+## 标签
+llama-index, GPT4All, LangChain, 本地模型，文档问答，pyllamacpp
 
 ## 摘要
-记录测试 llama-index 结合 GPT4All 本地模型的过程，包括环境搭建、模型转换和代码实现。遇到 token 超限等报错问题，待进一步解决。
+记录了使用 llama-index 结合 GPT4All 本地模型进行文档问答的测试过程，包含环境配置、模型转换和代码示例。测试中发现 token 长度限制导致的报错问题，最终未能解决。
 
 ## 关键概念
 - llama-index: LLM 与外部数据连接的接口框架，提供数据结构索引大量数据
-- GPT4All: 可在本地运行的量化语言模型
-- LangChain: LLM 应用开发框架，提供模块化组件快速构建应用
-- pyllamacpp: llama.cpp 的官方 Python 绑定库
+- GPT4All: 本地运行的开源语言模型，基于 llama.cpp 的 C/C++ 实现
+- LangChain: LLM 应用开发框架，提供与多种语言模型集成的模块
+- pyllamacpp: llama.cpp 的 Python 绑定库，支持 GPT4All 模型调用
 - LLMPredictor: LangChain 中 LLMChain 的包装器，用于 llama-index 集成
 
 ## 关联笔记
-无
+- 01KJBYXQY4P60F03GGHAEDA2SW.md: 早期的 llama-index 试用笔记，时间上在此次测试之前
+- 01KJBYXSMCBD001148DZFS1EGF.md: 后续测试 llama-index 与 OpenAI 的结合，时间上在此次测试之后
+- 01KJBYXT9H9NANJAR8WY5T6NZ2.md: 测试 Cohere 与 llama-index 结合，探索不同模型方案
