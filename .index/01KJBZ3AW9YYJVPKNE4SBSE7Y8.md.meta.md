@@ -1,48 +1,21 @@
 ---
 note: 01KJBZ3AW9YYJVPKNE4SBSE7Y8.md
 title: 20230913 - 尝试使用codellama进行SQL规则代码生成
-indexed_at: 2026-02-27T10:35:03.140685+00:00
+indexed_at: 2026-03-05T09:01:25.683675+00:00
 ---
 
-用户希望我分析这篇笔记并生成索引元数据。让我仔细分析：
-
-笔记标题：20230913 - 尝试使用codellama进行SQL规则代码生成
-
-笔记内容：只有一个链接 https://ragntune.com/blog/guide-fine-tuning-code-llama
-
-这是一个关于使用 CodeLlama 进行代码生成的笔记，具体是 SQL 规则相关的代码生成。内容非常简单，只有一个参考链接。
-
-让我生成索引：
-
 ## 标签
-需要 3-6 个关键词：CodeLlama, 代码生成, SQL, 大模型, 规则引擎
+CodeLlama, SQL 规则，代码生成，模型微调，大语言模型
 
 ## 摘要
-记录尝试使用 CodeLlama 大模型进行 SQL 规则代码生成的探索。提供了 CodeLlama 微调指南的参考链接。
+记录尝试使用 CodeLlama 进行 SQL 规则代码生成的探索，包含 Code Llama 微调指南参考链接。这是 2023 年 9 月 CodeLlama 微调实验系列的起始笔记。
 
 ## 关键概念
-- CodeLlama: Meta 发布的专注于代码生成的开源大语言模型
-- SQL 规则代码生成: 使用 AI 自动生成 SQL 相关规则代码
-- 模型微调: 针对特定任务调整预训练模型参数
+- CodeLlama: Meta 发布的专注于代码生成和理解的大语言模型
+- 模型微调: 在预训练模型基础上，使用特定领域数据进一步训练以适应特定任务
+- SQL 规则代码: 用于 SQL 优化和分析的规则引擎代码
 
 ## 关联笔记
-看其他笔记列表，有：
-- 01KJBYDAK7MGW5X6PQPXNF4BQ3.md: 20210429 - SQLLancer 学习 (与 SQL 工具相关)
-- 01KJBYDCFBDMBDD2VCZF2DZQX8.md: 20210606 - 从 binlog 中分离 SQL, 进行统计 (与 SQL 处理相关)
-
-但这些笔记都是 2021 年的，主要内容是数据库/MySQL 相关，与 CodeLlama 代码生成关联度不高。
-
-考虑到这篇笔记的核心是 AI 代码生成，而现有笔记库中缺乏相关主题，关联笔记应该是「无」。
-## 标签
-CodeLlama, 代码生成, SQL, 大模型, AI 编程
-
-## 摘要
-记录尝试使用 CodeLlama 大模型进行 SQL 规则代码生成的探索。提供了 CodeLlama 微调指南的参考链接。
-
-## 关键概念
-- CodeLlama: Meta 发布的专注于代码生成的开源大语言模型
-- SQL 规则代码生成: 使用 AI 自动生成 SQL 相关规则代码
-- 模型微调: 针对特定任务调整预训练模型参数
-
-## 关联笔记
-无
+- 01KJBZ3DW5TV6YQTD33NQ5HA61.md: 同系列实验笔记，测试使用 llama-recipes 进行 CodeLlama 微调
+- 01KJBZ3BWM6KQH7FVEN8MHQN4F.md: 同系列实验笔记，尝试用 CodeLlama 进行 SQL 规则代码的微调
+- 01KJBZ3CDY4S7H5QCATKFHAPYS.md: 同系列实验笔记，记录微调后跑通单元测试的进展
