@@ -1,46 +1,19 @@
 ---
 note: 01KJBZ9W0PKK8452G5H3A9S0VX.md
 title: 20240613 - 阅读论文: FLAR: Active Retrieval Augmented Generation
-indexed_at: 2026-02-27T10:59:03.315326+00:00
+indexed_at: 2026-03-05T10:06:00.754567+00:00
 ---
 
-用户要求我分析一篇关于 FLAR 论文的笔记，并生成索引元数据。让我仔细分析笔记内容：
-
-笔记主题：FLAR (Active Retrieval Augmented Generation) - 主动检索增强生成
-
-主要内容：
-- 在 LLM 推理时主动进行检索来完善答案
-- 两种触发检索的方式：
-  - FLAREinstruct: 生成检索鼓励指令
-  - FLAREdirect: 当 token 置信度低于阈值时触发检索
-
-需要生成：
-1. 标签（3-6 个）
-2. 摘要（2-3 句话）
-3. 关键概念（3-5 个）
-4. 关联笔记（0-3 篇）
-
-看其他笔记列表，大部分是关于 MySQL、Clickhouse、数据库、系统性能等主题的。有一篇笔记 "01KJBYDD09MGYR4GA0C4KB7P9F.md: 20210613 - TODO: Advanced Join Strategies for Large-Scale Distributed Computation" 可能与检索/分布式计算有一些关联，但关联度不高。其他笔记主要是数据库和系统层面的，与 LLM/检索增强生成关系不大。
-
-让我生成索引：
-
-标签：LLM, 检索增强生成，FLAR, 主动检索，推理优化
-
-摘要：介绍 FLAR 主动检索增强生成方法，在 LLM 推理过程中主动触发检索以完善答案。
-
-提出两种检索触发机制：FLAREinstruct 通过生成检索指令，FLAREdirect 基于 token 置信度阈值判断是否需要检索。
-
-关键概念包括 FLAREinstruct 和 FLAREdirect 两种方法，以及 token 置信度阈值作为触发条件。关联笔记方面，现有数据库相关的笔记与这篇 LLM 检索主题关联度较低。
-## 标签
-LLM, 检索增强生成，FLAR, 主动检索，推理优化
-
 ## 摘要
-介绍 FLAR 主动检索增强生成方法，在 LLM 推理过程中主动触发检索以完善答案。提出两种检索触发机制：FLAREinstruct 通过生成检索指令，FLAREdirect 基于 token 置信度阈值。
+FLAR 提出在 LLM 推理过程中主动触发检索以完善答案的两种方法。FLAREinstruct 让模型直接生成检索指令，FLAREdirect 在 token 置信度低于阈值时自动检索替换不确定句子。
 
 ## 关键概念
-- FLAREinstruct: LLM 推理时直接生成检索鼓励指令来触发检索
-- FLAREdirect: 当 token 置信概率小于阈值时主动检索替换该句子
-- 主动检索：在推理过程中根据需要主动发起检索而非被动等待
+- FLAREinstruct: LLM 推理时直接生成检索鼓励指令触发进一步检索
+- FLAREdirect: 当生成 token 的置信概率小于阈值时，对所在句子进行主动检索替换
+- 主动检索 (Active Retrieval): 在推理过程中动态决定何时进行额外检索而非预先检索
+- 置信度阈值: 用于判断 LLM 生成内容不确定性、触发检索的概率阈值
 
 ## 关联笔记
-无
+- 01KJBZ88V83251ZJ7E8G9QBSV2.md: RAG 流程增强综述笔记，在"基于规则判断召回必要性"部分引用了 FLAR 论文
+- 01KJBZR62TY2F0CMS66NRZXDFS.md: Golden-Retriever 论文笔记，同属 RAG 增强方向，通过术语查询解释优化检索
+- 01KJBZG9HE3MZ0312PBHKXC0M7.md: Speculative RAG 论文笔记，同属 RAG 优化方向，通过草稿机制降低上下文处理成本
