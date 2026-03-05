@@ -1,39 +1,22 @@
 ---
 note: 01KJBYFBDSR1SNE0X711Z0TGXR.md
 title: 20211117 - retdec 会导致SIGSEGV的探索
-indexed_at: 2026-02-27T10:13:48.820292+00:00
+indexed_at: 2026-03-05T07:50:23.317719+00:00
 ---
 
-The user wants me to analyze a note and generate index metadata in a specific Markdown format. Let me analyze the note:
-
-**Title**: 20211117 - retdec 会导致 SIGSEGV 的探索 (Exploration of retdec causing SIGSEGV)
-
-**Content**: The note is about exploring retdec (a decompiler tool) after failing with mcsema/reopt tools. The user tested retdec on test programs and compared the output with anvill decompiler. They found the two LLVM IR files were not comparable - anvill's output was longer and less readable.
-
-**Tags to extract**: retdec, 反编译 (decompilation), SIGSEGV, LLVM IR, 工具对比 (tool comparison), anvill
-
-**Summary**: This note documents an exploration of retdec decompiler after other tools (mcsema/reopt) failed. The user compared retdec's LLVM IR output with anvill's output and found them incomparable.
-
-**Key concepts**: 
-- retdec: A decompiler tool
-- LLVM IR: Intermediate representation used by both tools
-- anvill: Another decompiler tool
-- SIGSEGV: Segmentation fault error
-- bin2llvmir: retdec's binary to LLVM IR conversion step
-
-**Related notes**: Looking at the list, I need to find notes that might be related to reverse engineering, decompilation, or low-level system exploration. Most notes seem to be about MySQL, Clickhouse, database topics. None seem directly related to decompilation or reverse engineering tools.
-
-Let me format this properly in Chinese.## 标签
-retdec, 反编译, SIGSEGV, LLVM IR, anvill, 工具对比
+## 标签
+retdec, anvill, 反编译, LLVM IR, SIGSEGV, 二进制分析
 
 ## 摘要
-记录在 mcsema/reopt 工具失败后重新探索 retdec 反编译器的过程。对比 retdec 和 anvill 生成的 LLVM IR 文件，发现两者输出差异大，anvill 生成的文件更长且可读性更差。
+在尝试 mcsema/reopt 等工具失败后，重新探索 retdec 反编译工具。对比 retdec 和 anvill 生成的 LLVM IR 文件，发现 anvill 输出的 ll 文件更长且可读性更差。
 
 ## 关键概念
-- retdec: 开源可执行文件反编译器，可将二进制文件转换为 LLVM IR
-- anvill: 基于 IDA Pro 的反编译工具，生成 JSON spec 再转换为 LLVM IR
-- LLVM IR: 两种工具共同输出的中间表示格式，用于后续分析
-- bin2llvmir: retdec 反编译流程中的中间步骤，将二进制转换为 LLVM
+- retdec: 可重定向的反编译器，将二进制代码转换为 LLVM IR
+- anvill: 基于 IDA Pro 的反编译工具，生成 LLVM IR
+- LLVM IR: LLVM 中间表示，用于代码优化和分析
+- mcsema: 二进制代码提升工具，将 x86 指令转换为 LLVM IR
 
 ## 关联笔记
-无
+- 01KJBYF33K90HXENWZZKHBND30.md: retdec 的早期试用记录，记录了 retdec 的目的和使用过程
+- 01KJBYFAAKD1C10V96SPYJTY6A.md: mcsema 和 anvill 的编译安装及使用尝试，与本笔记的工具链直接相关
+- 01KJBYF973H98W1RNZ05SS50KE.md: 记录 retdec 生成的 LL 文件编译后出现 SIGSEGV 问题的后续调查
