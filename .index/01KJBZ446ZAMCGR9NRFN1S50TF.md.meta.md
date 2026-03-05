@@ -1,35 +1,22 @@
 ---
 note: 01KJBZ446ZAMCGR9NRFN1S50TF.md
 title: 20231127 - 在Oracle并发压力中, 测试OMS性能 [4]
-indexed_at: 2026-02-27T10:39:42.487525+00:00
+indexed_at: 2026-03-05T09:20:40.940317+00:00
 ---
 
-用户要求我分析这篇关于 Oracle 并发压力下 OMS 性能测试的笔记，并生成索引元数据。让我仔细阅读笔记内容：
-
-1. 这是一篇关于 OMS（OceanBase Migration Service）性能调优的笔记
-2. 场景是 10 warehouse, 10 vu 的 TPCC 测试
-3. 涉及多个调优参数：logfetcher 间隔、队列阈值、JVM 内存、sink worker 数量等
-4. 包含 TPCC 表的 DDL 语句
-
-我需要提取：
-- 标签：3-6 个关键词
-- 摘要：2-3 句话
-- 关键概念：3-5 个
-- 关联笔记：从提供的列表中找相关的
-
-看其他笔记列表，主要是 MySQL、Clickhouse、性能调优相关的，但这篇笔记是关于 Oracle 和 OMS 的，关联度不高。可能没有直接关联的笔记。
-
-让我生成输出：## 标签
-OMS, 性能调优, Oracle, TPCC, 数据同步, 并发测试
+## 标签
+OMS, Oracle, 性能调优, TPCC, 数据同步, ConflictBrokerV2
 
 ## 摘要
-记录在 Oracle 并发压力场景下对 OMS 数据同步进行的多项性能调优操作。包括调整源端 logfetcher 参数、目标端队列阈值、JVM 内存、sink worker 数量及 ConflictBrokerV2 配置等。
+记录在 Oracle 并发压力测试场景下对 OMS 数据同步性能的多项调优措施，包括源端 logminer 配置、目标端队列阈值、JVM 内存、sink 并发度等参数调整。通过 ConflictBrokerV2 解决热点表冲突问题，并手工创建 TPCC 表避免 IoT 表问题。
 
 ## 关键概念
-- ConflictBrokerV2: 用于处理热点表合并的冲突解决机制
-- logfetcher: 源端日志抓取组件，负责从 Oracle 抓取 redo log
-- sink.workerNum: 目标端写入工作线程数，影响并发写入能力
-- coordinator.maxRecordCapacity: 目标端队列最大容量，控制准入阈值
+- ConflictBrokerV2: OMS 的热点键合并机制，用于处理高并发场景下的行冲突
+- logminer: Oracle 日志挖掘工具，OMS 用于捕获源端增量数据
+- sink.workerNum: 目标端写入并发度配置，影响数据回放效率
+- coordinator.maxRecordCapacity: 队列准入阈值，控制内存中可缓存的记录数
 
 ## 关联笔记
-无
+- 01KJBZ449CMKM8CQ045S94KF5E.md: 同一系列性能测试的第一篇，记录 ConflictBrokerV1 的问题诊断过程
+- 01KJBZ4AQYF4DGS7F7000H9XZ8.md: 后续整理的 OMS 全量复制链路文档，涉及相同的 TPCC 表结构
+- 01KJBZ3EQK7E6D34480VFBNXRD.md: 使用 arthas 监控 OMS 队列的相关技术，与本笔记的调优方法相关
