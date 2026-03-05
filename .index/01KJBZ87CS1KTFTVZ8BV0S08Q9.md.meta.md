@@ -1,40 +1,21 @@
 ---
 note: 01KJBZ87CS1KTFTVZ8BV0S08Q9.md
 title: 20240504 - 阅读论文: QA-RAG
-indexed_at: 2026-02-27T10:51:34.650195+00:00
+indexed_at: 2026-03-05T09:48:24.494035+00:00
 ---
 
-用户要求我分析一篇关于 QA-RAG 的笔记，并生成索引元数据。让我仔细分析笔记内容：
-
-1. 笔记标题：20240504 - 阅读论文：QA-RAG
-2. 笔记内容：关于一个 RAG（检索增强生成）技术的论文阅读笔记，主要思路是用微调后的 LLM 生成 fake answer，然后用 fake answer + 原始 query 来召回文档。类似于 HyDE 方法。
-
-3. 其他笔记列表：大部分是关于 MySQL、Clickhouse、数据库、系统性能调优等内容的笔记，与这篇 QA-RAG 的 AI/LLM 主题关联度较低。
-
-让我生成索引：
-
 ## 标签
-RAG, LLM, 信息检索，微调，HyDE
+RAG, 文档召回, HyDE, LLM 微调, 检索增强
 
 ## 摘要
-介绍 QA-RAG 论文的核心方法，使用微调后的 LLM 生成假答案来增强文档检索。该方法与 HyDE 类似，但通过微调减少通用 LLM 引入的杂音知识。
+QA-RAG 使用微调后的 LLM 生成 fake answer，将 fake answer 与原始 query 结合进行文档召回。该方法类似于 HyDE，但 HyDE 使用通用 LLM 会引入杂音知识，而 QA-RAG 通过微调减少这一问题。
 
 ## 关键概念
-- QA-RAG: 使用生成答案辅助文档检索的 RAG 方法
-- Fake Answer: 由微调 LLM 生成的假设性答案，用于增强检索
-- HyDE: 使用通用 LLM 生成假设文档进行检索的类似方法
+- Fake Answer: 用微调 LLM 生成的假设性答案，用于增强文档召回
+- 文档召回: 将 query 与 fake answer 结合，在向量数据库中检索相关文档
+- HyDE: Hypothetical Document Embeddings，使用通用 LLM 生成假设文档进行检索的基线方法
 
 ## 关联笔记
-无（其他笔记主要是数据库、系统调优相关，与 LLM/RAG 主题无明显关联）## 标签
-RAG, LLM, 信息检索，微调，HyDE
-
-## 摘要
-介绍 QA-RAG 论文的核心方法，使用微调后的 LLM 生成假答案来增强文档检索。该方法与 HyDE 类似，但通过微调减少通用 LLM 引入的杂音知识。
-
-## 关键概念
-- QA-RAG: 使用生成答案辅助文档检索的 RAG 方法
-- Fake Answer: 由微调 LLM 生成的假设性答案，用于增强检索
-- HyDE: 使用通用 LLM 生成假设文档进行检索的类似方法
-
-## 关联笔记
-无
+- 01KJBZ84FXP9XQZ7489TPV0A5F.md: ChatDBA 笔记中直接引用了 QA-RAG 的 fake answer 召回方法
+- 01KJBYZ2DGB2PDS3ADP9JSCQ16.md: HyDE 测试方法笔记，QA-RAG 思路类似于 HyDE 但使用微调 LLM
+- 01KJBZ88V83251ZJ7E8G9QBSV2.md: RAG 综述笔记，将 HyDE 归类为输入增强技术中的查询改写方法
