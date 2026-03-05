@@ -1,49 +1,16 @@
 ---
 note: 01KJBYZVS5VH591WSCR3HQ7PFG.md
 title: 20230507 - 架设私有chatgpt
-indexed_at: 2026-02-27T10:28:53.302292+00:00
+indexed_at: 2026-03-05T08:42:24.478599+00:00
 ---
 
-用户要求我分析一篇关于架设私有 ChatGPT 的笔记，并生成索引元数据。让我分析笔记内容：
-
-1. 笔记标题：20230507 - 架设私有 chatgpt
-2. 笔记内容：一个 docker 命令，用于部署 chatbot-ui，配置了 Azure OpenAI 的相关环境变量
-
-我需要生成：
-1. 标签（3-6 个关键词）
-2. 摘要（2-3 句话）
-3. 关键概念（3-5 个）
-4. 关联笔记（0-3 篇，从给定的笔记列表中寻找关联）
-
-分析：
-- 这是关于部署私有 ChatGPT 服务的笔记
-- 使用 Docker 部署 chatbot-ui
-- 使用 Azure OpenAI API
-- 配置了 API key、类型、host、版本、deployment 等
-
-标签可以是：Docker, ChatGPT, Azure OpenAI, 私有部署, chatbot-ui
-
-摘要：记录使用 Docker 部署私有 ChatGPT 服务的命令。通过 chatbot-ui 容器对接 Azure OpenAI API 实现私有化部署。
-
-关键概念：
-- Docker: 容器化部署工具
-- Azure OpenAI: 微软 Azure 平台的 OpenAI 服务
-- chatbot-ui: 开源 ChatGPT 界面项目
-- OPENAI_API_KEY: OpenAI API 认证密钥
-- Deployment: Azure 上的模型部署配置
-
-关联笔记：浏览给定的笔记列表，主要是关于 MySQL、Clickhouse、性能分析等技术笔记，与这篇 ChatGPT 部署笔记没有明显关联。所以应该写「无」。## 标签
-Docker, ChatGPT, Azure OpenAI, 私有部署, chatbot-ui
-
 ## 摘要
-记录使用 Docker 部署私有 ChatGPT 服务的命令。通过 chatbot-ui 容器对接 Azure OpenAI API 实现私有化部署。
+记录使用 Docker 部署私有 chatbot-ui 的命令行配置，通过 Azure OpenAI API 接入 GPT-3.5-turbo 模型。指定了 API 密钥、API 类型、API 版本、部署 ID 等关键参数，端口映射为 3000。
 
 ## 关键概念
-- Docker: 容器化部署工具，用于运行 chatbot-ui 服务
-- Azure OpenAI: 微软 Azure 平台提供的 OpenAI API 服务
-- chatbot-ui: 开源的 ChatGPT Web 界面项目
-- OPENAI_API_KEY: Azure OpenAI 服务的认证密钥
-- Deployment ID: Azure 上部署的具体模型实例标识
+- chatbot-ui: 开源的 ChatGPT Web UI 界面项目，支持自定义 API 端点
+- Azure OpenAI: 微软 Azure 云提供的 OpenAI API 服务，需配置部署 ID 和版本号
+- Docker 容器部署: 通过环境变量传递配置，运行无状态服务
 
 ## 关联笔记
-无
+- 01KJBYZ4TEGRYF95QXFSF9JFZ4.md: 使用相同的 Azure OpenAI API 配置（API KEY、端点、版本）开发私有运维知识库 demo
