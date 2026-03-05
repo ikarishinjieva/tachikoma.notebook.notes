@@ -1,40 +1,23 @@
 ---
 note: 01KJBYJTJXB03VRDH5EHQ3VQWY.md
 title: 20220612 - numa blancing
-indexed_at: 2026-02-27T10:17:02.861920+00:00
+indexed_at: 2026-03-05T08:01:08.628100+00:00
 ---
 
-用户要求我分析一篇关于 NUMA balancing 的笔记，并生成索引元数据。让我仔细阅读笔记内容：
-
-1. 笔记主题：NUMA balancing（NUMA 平衡）
-2. 主要内容：
-   - NUMA balancing 的工作模式（task scanner、page fault、内存迁移）
-   - /proc/vmstat 中的 NUMA 相关统计值
-   - /sys/devices/system/node/node*/numastat 的统计值
-   - /proc/pid/numa_maps 的输出解释
-   - 涉及 MySQL 和数据库相关的 NUMA 问题
-
-3. 标签应该包括：NUMA、内存管理、性能优化、Linux 内核等
-
-4. 关联笔记分析：
-   - 01KJBYDAF12RN18BECZG1QSTEC.md: 20210519 - 内存去哪儿了 - 与内存相关
-   - 01KJBYDNQ4TQXJPQCVEH94QW3E.md: 20210628 - VSS/RSS/USS/PSS 解释 - 与内存相关
-   - 01KJBYD9TKEMSF0Z4RF5DHT1QK.md: 20210404 - MySQL 刷脏页研究 - 涉及 I/O 和内存
-   - 01KJBYD9VE4NJQXE9P0VKM16Q4.md: 20210329 - MySQL 刷盘研究 - 数据文件刷盘慢导致 SQL 卡顿 - 涉及 I/O
-
-这篇笔记主要讲 NUMA balancing 机制和相关的监控指标，与内存管理和性能优化相关。
-
-关联笔记中，"内存去哪儿了"和"VSS/RSS/USS/PSS 解释"都涉及内存分析，但关联性不算特别强。我应该生成简洁的索引元数据。## 标签
-NUMA, 内存管理, Linux 内核，性能优化，Page Fault
+## 标签
+NUMA, 内存管理，Page Fault, Linux 内核，性能优化，iowait
 
 ## 摘要
-介绍 NUMA balancing 的工作机制，包括任务扫描器周期性标记内存、触发 NUMA Hinting Fault 及页面迁移的过程。整理了 `/proc/vmstat`、`/sys/devices/system/node/node*/numastat`、`/proc/pid/numa_maps` 等关键监控指标的说明。
+记录 NUMA balancing 的三种工作模式：周期性扫描标记内存、触发 NUMA Hinting Fault、数据迁移到任务所在节点。整理 /proc/vmstat 和 /sys/devices/system/node/node*/numastat 中的关键统计指标及其含义。
 
 ## 关键概念
-- NUMA Hinting Fault: 访问被标记的内存时触发的缺页中断，用于驱动页面迁移
-- numa_pages_migrated: 因位置不当而迁移的页面数，是 NUMA balancing 主要开销来源
-- local_node: 进程在本节点 CPU 运行并从本节点分配内存的次数
+- NUMA Hinting Fault: 访问被标记的内存时触发的特殊 page fault，用于驱动内存迁移
+- numa_pages_migrated: 因位置不当而迁移的页面数，是 NUMA balancing 开销的主要来源
+- numa_pte_updates: 被标记为触发 NUMA hinting fault 的基页数量
+- local_node: 进程在本节点 CPU 运行并从本节点分配内存的成功次数
+- numa_foreign: 进程想在本节点分配内存但实际从其他节点分配的次数
 
 ## 关联笔记
-- 01KJBYDAF12RN18BECZG1QSTEC.md: 20210519 - 内存去哪儿了（都涉及内存分析与监控）
-- 01KJBYDNQ4TQXJPQCVEH94QW3E.md: 20210628 - VSS/RSS/USS/PSS 解释（都涉及内存指标解读）
+- 01KJBYXQHSCD3DVCRPTGQVN88W.md: 深入分析 NUMA balancing 通过 task_numa_work 和 change_prot_numa 触发 TLB flush 导致 CAL 中断升高的问题
+- 01KJBYJV26733NF0YPZ7ETDET7.md: 使用 TMA 方法测试跨 NUMA 访问时 Memory_Bound 指标升高 15% 的实验记录
+- 01KJBYKEEAEBE19H8NX3SFJXR3.md: 讨论 NUMA 与 THP 配合导致的性能问题及 page fault handler 耗时分析
