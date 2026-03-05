@@ -1,46 +1,23 @@
 ---
 note: 01KJBYXQEJ0X39WB95B5E7PMN3.md
 title: 20220826 - 百胜slave延迟, sar探索
-indexed_at: 2026-02-27T10:22:46.154681+00:00
+indexed_at: 2026-03-05T08:21:48.850670+00:00
 ---
 
-用户希望我分析这篇关于百胜 slave 延迟和 sar 探索的笔记，生成索引元数据。让我仔细阅读笔记内容并提取关键信息。
-
-笔记主要内容：
-1. 关于百胜 slave 延迟问题的分析
-2. 使用 sar 工具进行系统性能分析
-3. 涉及延迟、上下文切换、pgpgout/s、CPU 异常等多个维度的监控数据
-4. 包含多个日期的监控图表（20 日、21 日、26 日、27 日等）
-5. 涉及 Linux 性能指标分析（pgpgout、fault、bwrtn/s、wtps、tps 等）
-6. 参考了 RedHat 文档和 Linux 源码
-
-关键概念：
-- sar: 系统活动报告工具
-- pgpgout: 页面换出统计
-- 上下文切换
-- IO 指标（await、svctm、%util 等）
-
-关联笔记分析：
-- 01KJBYD9V2AQHGQD00WZFNHA7A.md: 20210409 - iostat 与 sar -b 的区别 - 都与 sar 和 IO 监控相关
-- 01KJBYDAF12RN18BECZG1QSTEC.md: 20210519 - 内存去哪儿了 - 涉及内存分析，与 pgpgout 相关
-- 01KJBYDB30D5DK9MDJ70R5YFST.md: 20210513 - 百胜 cpu 高的探索 - 同一项目（百胜）的性能问题探索
-
-
-- 01KJBYDCFBDMBDD2VCZF2DZQX8.md: 20210606 - 从 binlog 中分离 SQL, 进行统计 - 可能涉及 slave 相关
-
-现在生成索引。## 标签
-MySQL, 性能分析, sar, slave 延迟, IO 监控, 上下文切换
+## 标签
+MySQL, 主从复制，延迟诊断，sar, pgpgout, 上下文切换
 
 ## 摘要
-记录百胜 MySQL slave 延迟问题的排查过程，通过 sar 工具分析多日监控数据。发现 pgpgout 峰值与延迟曲线上升起点重合，CPU 切换时间与延迟起止时间重合，涉及内存换页、IO 请求、上下文切换等多维度指标分析。
+分析百胜 slave 延迟问题，通过 sar 工具探索系统性能指标与延迟的关联。发现 pgpgout 峰值、上下文切换、CPU 奇偶切换与延迟曲线高度重合，bwrtn/s 和 IO 指标趋势一致。
 
 ## 关键概念
-- pgpgout: 每秒从内存换出的页面数，与延迟峰值趋势一致
-- await/svctm: IO 延迟指标，写入量增多时反而变低
-- 上下文切换: 偶数/奇数 CPU 切换时间与延迟发生时间重合
-- sar: Linux 系统活动报告工具，用于采集性能监控数据
+- pgpgout/s: 每秒从内存页写出的数据量，峰值与延迟上升起点重合
+- 上下文切换: 进程/线程在 CPU 间的切换，20 日/21 日出现异常波动
+- CPU 奇偶切换: 偶数 CPU 与奇数 CPU 间的负载切换，与延迟起止时间重合
+- await/svctm: IO 延迟指标，写入量增大时反而变低
+- bwrtn/s: 块设备写入速率，与 pgpgout 趋势相同
 
 ## 关联笔记
-- 01KJBYD9V2AQHGQD00WZFNHA7A.md: iostat 与 sar -b 的区别，同属 IO 监控工具分析
-- 01KJBYDB30D5DK9MDJ70R5YFST.md: 百胜 cpu 高的探索，同一项目的性能问题排查
-- 01KJBYDAF12RN18BECZG1QSTEC.md: 内存去哪儿了，涉及内存分析与 pgpgout 相关
+- 01KJBYXQKER6WW6C71KQ4VHRPX.md: 同系列线索整理笔记，引用了内存页表诊断和上下文切换诊断
+- 01KJBYKEEAEBE19H8NX3SFJXR3.md: 百胜 slave 延迟的内存页表相关诊断，与本笔记 pgpgout 分析相关
+- 01KJBYKK56GGEG65TSY8WHHZXJ.md: 百胜 slave 延迟的上下文切换诊断，与本笔记上下文切换分析相关
