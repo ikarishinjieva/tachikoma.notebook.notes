@@ -1,51 +1,23 @@
 ---
 note: 01KJBYXQCY99CVFVFTJ7M39MJD.md
 title: 20221201 - OMS监控
-indexed_at: 2026-02-27T10:22:22.793998+00:00
+indexed_at: 2026-03-05T08:21:29.635035+00:00
 ---
 
-Let me analyze this note about OMS monitoring to generate the index metadata.
-
-The note is about OMS (likely OceanBase Migration Service or similar) monitoring, covering:
-1. InfluxDB monitoring items
-2. io.dropwizard.metrics5 for monitoring with jetty process and coordinator process
-3. Various metrics and log paths
-
-Let me create the metadata:
-
 ## 标签
-监控，OMS, InfluxDB, metrics, JVM, 性能分析
+OMS, 监控, InfluxDB, metrics, coordinator, 数据同步
 
 ## 摘要
-本文记录 OMS 系统的监控体系，包括 InfluxDB 中的监控项和 io.dropwizard.metrics5 实现的监控接口。介绍了 jetty 进程的 metrics 访问方式和 coordinator 进程的监控日志输出。
+记录 OMS 系统的监控体系，包括 InfluxDB 存储的监控项和 io.dropwizard.metrics5 实现的监控接口。涵盖 jetty 进程的/metrics 接口和 coordinator 进程的 metrics.log 日志输出。
 
 ## 关键概念
-- InfluxDB: 时序数据库，存储 OMS 监控指标数据
-- io.dropwizard.metrics5: Java 性能监控库，用于采集 JVM 和应用指标
-- metrics servlet: 通过 HTTP 接口暴露监控数据的 servlet
-- ScheduledLogReporterTask: 定时任务，每 10 秒将监控值打印到日志
+- InfluxDB: 存储 OMS 监控数据的时序数据库，包含 checker、jdbcwriter、store 等监控项
+- io.dropwizard.metrics5: OMS 使用的监控框架，通过 servlet 形式暴露监控接口
+- coordinator 进程: 通过 ScheduledLogReporterTask 任务每 10s 将监控值打印到 metrics.log
+- metrics.log: OMS 监控日志文件，记录 JVM、sink、source、dispatcher、frame 等维度的监控数据
+- jetty servlet: 通过/metrics/*URL 模式暴露 AdminServlet 接口获取监控数据和堆栈信息
 
 ## 关联笔记
-Looking at the other notes, I need to find related ones:
-- 01KJBYD9T7VWC3J9T1JMVWGWMB.md: 20210330 - performance_schema 的日常使用 (related to monitoring/observability)
-- 01KJBYDAF12RN18BECZG1QSTEC.md: 20210519 - 内存去哪儿了 (related to JVM memory monitoring)
-- 01KJBYDNQ4TQXJPQCVEH94QW3E.md: 20210628 - VSS/RSS/USS/PSS 解释 (related to memory monitoring)
-
-
-- 01KJBYD9T2SKQ815RG0XWSD236.md: 20210330 - 农行 JDK 导致 mysql connector 报错 (JDK related, but not directly related to monitoring)
-
-The most relevant connections are performance_schema for database monitoring, memory analysis notes for JVM insights, and memory metrics explanations.## 标签
-监控，OMS, InfluxDB, metrics, JVM, 性能分析
-
-## 摘要
-本文记录 OMS 系统的监控体系，包括 InfluxDB 中的监控项和 io.dropwizard.metrics5 实现的监控接口。介绍了 jetty 进程的 metrics 访问方式和 coordinator 进程的监控日志输出。
-
-## 关键概念
-- InfluxDB: 时序数据库，存储 OMS 监控指标数据
-- io.dropwizard.metrics5: Java 性能监控库，用于采集 JVM 和应用指标
-- metrics servlet: 通过 HTTP 接口暴露监控数据的 servlet
-- ScheduledLogReporterTask: 定时任务，每 10 秒将监控值打印到日志
-
-## 关联笔记
-- 01KJBYD9T7VWC3J9T1JMVWGWMB.md: performance_schema 的日常使用（同为监控/可观测性相关主题）
-- 01KJBYDAF12RN18BECZG1QSTEC.md: 内存去哪儿了（涉及 JVM 内存监控分析）
+- 01KJBZ4AQYF4DGS7F7000H9XZ8.md: 整理 OMS 全量复制链路，涉及 coordinator 配置和 metrics 相关参数
+- 01KJBZ3FQT8FKX47BF6Q8C4X7J.md: 分析 OMS 日志系统，包含 metrics.log 日志路径和输出机制
+- 01KJBZ45XPJ5T7FYJVGSDF5EKH.md: 整理 OMS 全量复制链路过程，涉及 coordinator 进程启动和配置
