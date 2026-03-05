@@ -1,35 +1,20 @@
 ---
 note: 01KJBZ9CGND48QFTK6R3W2QQ97.md
 title: 20240518 - UniMS-RAG: A Unified Multi-source Retrieval-Augmented Generation for Personalized Dialogue Systems
-indexed_at: 2026-02-27T10:54:18.353017+00:00
+indexed_at: 2026-03-05T09:55:12.532020+00:00
 ---
 
-用户要求我分析这篇关于 UniMS-RAG 的笔记，生成索引元数据。我需要：
-
-1. 提取 3-6 个标签
-2. 写 2-3 句话的摘要
-3. 列出 3-5 个关键概念
-4. 判断与其他笔记的关联性
-
-从笔记内容来看：
-- 这是关于 UniMS-RAG 框架的论文解读
-- 涉及个性化对话系统、RAG（检索增强生成）、多源知识检索
-- 核心技术包括：评估标记、refinement 机制、planner/retriever/reader 统一框架
-
-其他笔记列表主要是关于 MySQL、Clickhouse、系统性能等技术内容，与这篇 AI/LLM/RAG 主题的笔记没有明显关联。
-
-让我生成简洁的索引元数据。
 ## 标签
-RAG, 对话系统, 个性化生成, 多源检索, 大语言模型, 评估标记
+RAG, 个性化对话系统, UniMS-RAG, 评估标记, 联合训练, 自 refinement
 
 ## 摘要
-UniMS-RAG 是一个统一多源检索增强生成框架，用于个性化对话系统。它通过引入评估标记和自 refinement 机制，将知识源选择、检索、回复生成三个任务统一为标记预测任务联合训练。
+UniMS-RAG 是一个统一多源检索增强生成框架，用于个性化对话系统，通过 Seq2Seq 方式统一知识源选择 (planner)、知识检索 (retriever) 和回复生成 (reader) 三个子任务。核心创新是引入行动标记和评估标记，配合自 refinement 机制确保生成回复与检索证据的一致性。
 
 ## 关键概念
-- 评估标记: 表示检索证据与对话上下文的相关性得分，用于指导生成和 refinement
-- 自 Refinement 机制: 根据评估标记反馈重新评估生成回复与证据的一致性
-- 行动标记: 决定下一步使用哪个知识源的标记
-- Planner-Retriever-Reader 统一: 将三个子任务统一为 Seq2Seq 标记预测任务
+- 行动标记: 用于决定下一步行动（选择哪个知识源）的特殊标记
+- 评估标记: 表示对话上下文与检索证据相关性得分的监督信号
+- 自 Refinement: 利用评估标记反馈重新评估生成回复与证据一致性的机制
+- PerDS: 个性化知识增强对话回复生成任务 (Personalized Dialogue System)
 
 ## 关联笔记
-无
+- 01KJBZ88V83251ZJ7E8G9QBSV2.md: RAG 综述论文笔记，在分类讨论中引用了 UniMS-RAG 作为应用案例
