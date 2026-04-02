@@ -1,12 +1,14 @@
 ---
 title: 20260401 - 电池CT.ai
 created_at: 2026-04-01T05:05:08.074176+00:00
-updated_at: 2026-04-01T08:02:19.108894+00:00
+updated_at: 2026-04-02T05:56:00.282609+00:00
 ---
 
-# 数据集准备
+# 数据集准备-1
 
 <https://pmc.ncbi.nlm.nih.gov/articles/PMC11251086/>
+
+<https://arxiv.org/abs/2403.02527>
 
 其有一个大数据集, 其下载需要AI来整理出脚本:
 
@@ -73,6 +75,8 @@ done
     电池数量：5 个
     ```
 
+# 数据集准备-2
+
 另一个数据集: 伦敦大学学院 (UCL) 电池 3D X-ray CT 数据集
 
 [https://rdr.ucl.ac.uk/articles/dataset/Lithium-ion_Battery_INR18650_MJ1_3D_X-ray_CT_Data_NMC811_Cathode_EIL-014\\\_/12159366](https://rdr.ucl.ac.uk/articles/dataset/Lithium-ion_Battery_INR18650_MJ1_3D_X-ray_CT_Data_NMC811_Cathode_EIL-014%5C_/12159366)
@@ -84,3 +88,17 @@ https://rdr.ucl.ac.uk/ndownloader/files/22360440
 数据集举例: 与目标场景不同
 
 ![](/assets/01KN3PWPZ9WTX3KM20TWFG9N52/23b94870769a4313ae0b7040b87db4c5.png)
+
+# 数据集准备-3
+
+Lumafield 电池质量与安全分析数据集/报告
+
+<https://7802750.fs1.hubspotusercontent-na1.net/hubfs/7802750/White%20Papers%20and%20Guides/Batteries/Lumafield%20Battery%20Report.pdf>
+
+没有对应数据集下载
+
+# 数据集准备-4
+
+<https://zenodo.org/records/14576042>
+
+等待下载
